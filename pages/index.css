@@ -1,3 +1,13 @@
-p{
-    color: blueviolet;
-}
+@import url("../blocks/page.css");
+
+@import url("../vendor/fonts.css");
+
+@import url("../vendor/normalize.css");
+
+@import url("../blocks/header.css");
+
+@import url("../blocks/intro.css");
+
+@import url("../blocks/grid.css");
+
+@import url("../blocks/footer.css");
