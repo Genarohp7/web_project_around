@@ -1,0 +1,23 @@
+.header {
+  width: 100%;
+}
+.header__logo {
+  display: inline-block;
+  width: 173px;
+  text-decoration: none;
+margin-top: 45px;
+margin-left: 200px;
+}
+
+.header__line{
+  width: 880px;
+  background-color: #545454;
+  margin-top: 20px;
+  opacity: 70%;
+}
+
+
+@media screen and (max-width: 544px) {
+
+
+}
