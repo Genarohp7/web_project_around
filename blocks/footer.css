@@ -1,0 +1,19 @@
+.footer__copyright {
+  font-size: 0.875rem;
+  color: #545454;
+  position: relative;
+  left: 17%;
+  padding-bottom: 5%;
+  padding-top: 5%;
+  background-color: var(--footer-bg-color);
+}
+
+@media screen and (max-width: 544px) {
+
+    .footer__copyright {
+        left: 0;
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
