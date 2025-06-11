@@ -1,6 +1,7 @@
 .header {
   width: 100%;
 }
+
 .header__logo {
   display: inline-block;
   width: 173px;
@@ -19,5 +20,23 @@ margin-left: 200px;
 
 @media screen and (max-width: 544px) {
 
+  .header {
+  width: 100%;
+}
+
+  .header__logo {
+margin-top: 20px;
+margin-left: 20px;
+  width: 126px;
+  text-decoration: none;
+
+}
+
+.header__line{
+  width: 100%;
+  background-color: #545454;
+  margin-top: 20px;
+  opacity: 70%;
+}
 
 }
