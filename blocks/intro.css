@@ -1,4 +1,3 @@
-
 .intro {
   width: 880px;
   margin: 5% auto 5%;
@@ -74,7 +73,6 @@
   opacity: 60%;
 }
 
-
 .intro__add-button {
   width: 150px;
   height: 50px;
@@ -88,113 +86,10 @@
   opacity: 60%;
 }
 
-.popup__overlay{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 90%;
-  height: 90%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  /* display: none; */
-}
-
-.popup__container {
-  width: 430px;
-  height: 330px;
-  background-color: #ffffff;
-  position: absolute;
-  top: 20%;
-  left: 30%;
-  border-radius: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  
-}
-
-.popup__overlay.hidden {
-  display: none;
-}
-
-.popup__title {
-  font-family: Inter, sans-serif;
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 100%;
-  margin-left: 5%;
-  color: black;
-}
-
-.popup {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  bottom: 15%;
-}
-
-.popup__input-action,
-.popup__input-name {
-  width: 358px;
-  height: 27px;
-  background-color: #ffffff;
-  color: #c4c4c4;
-  border: none;
-  border-bottom: 1px solid #c4c4c4;
-  margin-bottom: 5%;
-  outline: none;
-  font-family: Inter, sans-serif;
-}
-
-.popup__input-name::placeholder,
-.popup__input-action::placeholder {
-  color: #c4c4c4;
-  font-family: Inter, sans-serif;
-}
-
-.popup__button {
-  width: 365px;
-  height: 50px;
-  background-color: #ffffff;
-  color: #c4c4c4;
-  border: 1px solid #c4c4c4;
-  margin-top: 5%;
-  font-family: Inter, sans-serif;
-  cursor: pointer;
-}
-
-.active {
-  background-color: #ffffff;
-  color: #C4C4C4;
-}
-
-.active:hover {
-  opacity: 80%;
-}
-
-.popup__close {
-  position: absolute;
-  top: -15%;
-  right: -10%;
-  font-size: 40px;
-  color: #ffffff;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.popup__close:hover {
-  opacity: 60%;
-}
 
 
 @media screen and (max-width: 544px) {
-    .intro {
+  .intro {
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -254,42 +149,5 @@
     border: 1px solid #ffffff;
   }
 
-.popup__overlay{
-  width: 100%;
-  max-width: 282px;
-    height: 322px;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-  .popup__container {
-    width: 282px;
-    height: 322px;
- position: relative;
-    top: 0;
-    left: 0;
-    border-radius: 5%; 
-    position: relative;
-    left: 20px;
-    top: 90px ;
-  }
-
-  .popup__input-action,
-  .popup__input-name {
-    width: 90%;
-  }
-
-  .popup__button {
-    width: 90%;
-  }
-
-  .popup__close {
-  position: absolute;
-  top: -10%;
-  right: -3%;
-  font-size: 26px;
- 
-}
+  
 }

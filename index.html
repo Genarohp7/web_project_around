@@ -10,7 +10,7 @@
       src="https://kit.fontawesome.com/0291b03fa1.js"
       crossorigin="anonymous"
     ></script>
-    <script src="./scripts/script.js"></script>
+    
   </head>
   <body>
     <div class="page">
@@ -23,83 +23,121 @@
         <hr class="header__line" />
       </header>
       <main class="content">
-       <div class="intro">
-  <img src="./images/perfil.jpg" alt="foto de perfil" class="intro__photo" />
+        <div class="intro">
+          <img
+            src="./images/perfil.jpg"
+            alt="foto de perfil"
+            class="intro__photo"
+          />
 
-  <div class="intro__profile">
-    <div class="profile__top">
-      <h1 class="profile__title">Genaro Cousteau</h1>
-      <button class="profile__edit-button" aria-label="Editar perfil">
-        <i class="fa-solid fa-pen"></i>
-      </button>
-    </div>
-    <p class="profile__activity">Explorador</p>
-  </div>
+          <div class="intro__profile">
+            <div class="profile__top">
+              <h1 class="profile__title">Genaro Cousteau</h1>
+              <button class="profile__edit-button" aria-label="Editar perfil">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+            </div>
+            <p class="profile__activity">Explorador</p>
+          </div>
 
-  <button class="intro__add-button" aria-label="Agregar elemento">
-    <i class="fa-solid fa-plus"></i>
-  </button>
-</div>
-<div class="popup__overlay">
-    <div class="popup__container">
-      <h2 class="popup__title">Editar perfil</h2>
-      <form action="" class="popup">
-        
-        <input type="text" class="popup__input-name" placeholder="Nombre" />
-        <input type="text" class="popup__input-action" placeholder="Acerca de mi" />
-        <button class="popup__button active">Guardar</button>
-      </form>
-      <button class="popup__close"><i class="fa-solid fa-x"></i></button>
-    </div>
-    </div>
-    <div class="grid">
-      <div class="grid__item">
-        <img src="./images/img1.png" alt="valle de Yosemite" class="item__img">
-        <div class="item__text">
-          <h2 class="text__city">Valle de Yosemite</h2>
-          <i class="fa-regular fa-heart text__icon"></i>
+          <button class="intro__add-button" aria-label="Agregar elemento">
+            <i class="fa-solid fa-plus"></i>
+          </button>
         </div>
-      </div>
-      <div class="grid__item">
-        <img src="./images/img2.png" alt="lago Louise" class="item__img">
-        <div class="item__text">
-          <h2 class="text__city">Lago Louise</h2>
-          <i class="fa-regular fa-heart text__icon"></i>
+        <div class="popupsec">
+          <div class="popup__container">
+            <h2 class="popup__title">Editar perfil</h2>
+            <form action="" class="popup">
+              <input
+                type="text"
+                class="popup__input-name"
+                placeholder="Nombre"
+                id="input-name"
+                required
+              />
+              <input
+                type="text"
+                class="popup__input-action"
+                placeholder="Acerca de mi"
+                id="input-tag"
+                required
+              />
+              <button type="submit" class="popup__button active">
+                Guardar
+              </button>
+            </form>
+            <button class="popup__close"><i class="fa-solid fa-x"></i></button>
+          </div>
         </div>
-      </div>
-      <div class="grid__item">
-        <img src="./images/img3.png" alt="Montañas Calvas" class="item__img">
-        <div class="item__text">
-          <h2 class="text__city">Montañas Calvas</h2>
-        <i class="fa-regular fa-heart text__icon"></i>
+        <div class="grid">
+          <div class="grid__item">
+            <img
+              src="./images/img1.png"
+              alt="valle de Yosemite"
+              class="item__img"
+            />
+            <div class="item__text">
+              <h2 class="text__city">Valle de Yosemite</h2>
+              <i class="fa-regular fa-heart text__icon"></i>
+            </div>
+          </div>
+          <div class="grid__item">
+            <img src="./images/img2.png" alt="lago Louise" class="item__img" />
+            <div class="item__text">
+              <h2 class="text__city">Lago Louise</h2>
+              <i class="fa-regular fa-heart text__icon"></i>
+            </div>
+          </div>
+          <div class="grid__item">
+            <img
+              src="./images/img3.png"
+              alt="Montañas Calvas"
+              class="item__img"
+            />
+            <div class="item__text">
+              <h2 class="text__city">Montañas Calvas</h2>
+              <i class="fa-regular fa-heart text__icon"></i>
+            </div>
+          </div>
+          <div class="grid__item">
+            <img
+              src="./images/img4.png"
+              alt="imagen de Latemar"
+              class="item__img"
+            />
+            <div class="item__text">
+              <h2 class="text__city">Latemar</h2>
+              <i class="fa-regular fa-heart text__icon"></i>
+            </div>
+          </div>
+          <div class="grid__item">
+            <img
+              src="./images/img5.png"
+              alt="imagen de Vanois National"
+              class="item__img"
+            />
+            <div class="item__text">
+              <h2 class="text__city">Vanois National...</h2>
+              <i class="fa-regular fa-heart text__icon"></i>
+            </div>
+          </div>
+          <div class="grid__item">
+            <img
+              src="./images/img6.png"
+              alt="Lago di Braies"
+              class="item__img"
+            />
+            <div class="item__text">
+              <h2 class="text__city">Lago di Braies</h2>
+              <i class="fa-regular fa-heart text__icon"></i>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="grid__item">
-        <img src="./images/img4.png" alt="imagen de Latemar" class="item__img">
-        <div class="item__text">
-          <h2 class="text__city">Latemar</h2>
-         <i class="fa-regular fa-heart text__icon"></i>
-        </div>
-      </div>
-      <div class="grid__item">
-        <img src="./images/img5.png" alt="imagen de Vanois National" class="item__img">
-        <div class="item__text">
-          <h2 class="text__city">Vanois National...</h2>
-          <i class="fa-regular fa-heart text__icon"></i>
-        </div>
-      </div>
-      <div class="grid__item">
-        <img src="./images/img6.png" alt="Lago di Braies" class="item__img">
-        <div class="item__text">
-          <h2 class="text__city">Lago di Braies</h2>
-          <i class="fa-regular fa-heart text__icon"></i>
-        </div>
-      </div>
-    </div>
-       <footer class="footer">
-        <p class="footer__copyright">&copy; 2025. Genaro Hernández Piñeiro</p>
-      </footer>
+        <footer class="footer">
+          <p class="footer__copyright">&copy; 2025. Genaro Hernández Piñeiro</p>
+        </footer>
       </main>
     </div>
+    <script src="./scripts/script.js"></script>
   </body>
 </html>
