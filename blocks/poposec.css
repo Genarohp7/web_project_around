@@ -122,6 +122,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
   }
 
   .popup__container {
