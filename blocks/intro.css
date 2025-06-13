@@ -1,6 +1,6 @@
 .intro {
   width: 880px;
-  margin: 5% auto 5%;
+  margin: 5% auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,13 +22,13 @@
   flex-grow: 1;
 }
 
-.profile__top {
+.intro__profile-top {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.profile__title {
+.intro__profile-title {
   font-size: 42px;
   font-family: Inter, sans-serif;
   line-height: 48px;
@@ -37,7 +37,7 @@
   margin: 0;
 }
 
-.profile__edit-button {
+.intro__profile-edit-button {
   width: 30px;
   height: 30px;
   font-size: 14px;
@@ -47,11 +47,11 @@
   cursor: pointer;
 }
 
-.profile__edit-button:hover {
+.intro__profile-edit-button:hover {
   opacity: 60%;
 }
 
-.profile__activity {
+.intro__profile-activity {
   font-family: Inter, sans-serif;
   font-size: 18px;
   font-weight: 400;
@@ -60,7 +60,7 @@
 }
 
 .intro__add-button {
-  width: 50px;
+  width: 150px;
   height: 50px;
   color: #ffffff;
   background-color: black;
@@ -72,21 +72,6 @@
 .intro__add-button:hover {
   opacity: 60%;
 }
-
-.intro__add-button {
-  width: 150px;
-  height: 50px;
-  color: #ffffff;
-  background-color: black;
-  border: 1px solid #ffffff;
-  cursor: pointer;
-}
-
-.intro__add-button:hover {
-  opacity: 60%;
-}
-
-
 
 @media screen and (max-width: 544px) {
   .intro {
@@ -110,21 +95,21 @@
     gap: 0.5rem;
   }
 
-  .profile__top {
+  .intro__profile-top {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
   }
 
-  .profile__title {
+  .intro__profile-title {
     font-size: 24px;
     line-height: 1.2;
     color: #ffffff;
     margin: 0;
   }
 
-  .profile__edit-button {
+  .intro__profile-edit-button {
     width: 24px;
     height: 24px;
     font-size: 12px;
@@ -133,7 +118,7 @@
     border: 1px solid #ffffff;
   }
 
-  .profile__activity {
+  .intro__profile-activity {
     font-size: 16px;
     color: #ffffff;
     margin: 0;
@@ -144,10 +129,5 @@
     height: 50px;
     font-size: 24px;
     margin-top: 10%;
-    color: #ffffff;
-    background-color: black;
-    border: 1px solid #ffffff;
   }
-
-  
 }
