@@ -1,4 +1,4 @@
-.popup__overlay {
+.popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -106,7 +106,7 @@
 }
 
 @media screen and (max-width: 544px) {
-  .popup__overlay {
+  .popup {
     width: 100%;
     max-width: 282px;
     height: 322px;
