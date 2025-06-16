@@ -48,12 +48,48 @@
   opacity: 50%;
 }
 
+@media screen and (max-width: 1024px) {
+  .grid {
+    width: 90%;
+    left: 0;
+    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+
+  .grid__item-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .grid__item {
+    width: 100%;
+  }
+
+  .grid__item-text {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .grid__item-city {
+    font-size: 20px;
+  }
+
+  .grid__item-icon {
+    font-size: 20px;
+  }
+}
+/* hola Сhristian no se si leas este comentario y no se si en caso de hacer uno este bien ponerlo aqui. Con lo que respecta a los dispositivos tablet si fue mi error no hacerlo ya que 
+entiendo que simpre sedeben considerar los tres tipos de pantalla estanar, no se si el diseño sea el correcto ya que en el figma no refiere un diseño especifico en una tablet pero 
+al foinal quise ser algo propositivo y generar  una visualizacion tanto diferente a desktop como movil */
+
 @media screen and (max-width: 544px) {
   .grid {
     width: 282px;
     grid-template-columns: repeat(1, 1fr);
     gap: 10px;
     padding: 10px;
-    left: 3%;
+   
   }
 }
