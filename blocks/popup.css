@@ -108,9 +108,9 @@
     max-width: 282px;
     height: 322px;
     background-color: rgba(0, 0, 0, 0.5);
-    display: none;
     justify-content: center;
     align-items: center;
+ 
   }
 
   .popup__container {
