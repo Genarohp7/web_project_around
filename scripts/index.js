@@ -9,6 +9,26 @@ let name = document.querySelector(".intro__profile-title");
 let job = document.querySelector(".intro__profile-activity");
 let form = document.querySelector(".popup__form");
 
+let newCardButton = document.querySelector(".intro__addCard-button");
+let closeAddCardButton = document.querySelector(".addCard__close");
+let saveAddCardButton = document.querySelector(".addCard__button");
+let addCard = document.querySelector(".addCard");
+
+function openAddCard() {
+  addCard.classList.add("addCard_opened");
+  nameInput.value = "";
+  jobInput.value = "";
+}
+
+function closeAddCard() {
+  addCard.classList.remove("addCard_opened");
+}
+
+newCardButton.addEventListener("click", openAddCard);
+closeAddCardButton.addEventListener("click", closeAddCard);
+
+// funcion y arreglo de grid para cargar nuevas tarjetas
+
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -74,11 +94,15 @@ initialCards.forEach((cardData) => {
   cardContainer.appendChild(cardElement);
 });
 
+// funcion para abrir popup de edicion de perfil
+
 function openpopup() {
   popup.classList.add("popup_opened");
   nameInput.value = "";
   jobInput.value = "";
 }
+
+// funcion para cerrar popup de edicion de perfil
 
 function closepopup() {
   popup.classList.remove("popup_opened");
@@ -86,6 +110,8 @@ function closepopup() {
 
 editButton.addEventListener("click", openpopup);
 closeButton.addEventListener("click", closepopup);
+
+// funcion para actualizas datos del perfil
 
 function submitForm(e) {
   e.preventDefault();

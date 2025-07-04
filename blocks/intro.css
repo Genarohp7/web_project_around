@@ -59,7 +59,7 @@
   margin-top: 0.5rem;
 }
 
-.intro__add-button {
+.intro__addCard-button {
   width: 150px;
   height: 50px;
   color: #ffffff;
@@ -69,7 +69,7 @@
   cursor: pointer;
 }
 
-.intro__add-button:hover {
+.intro__addCard-button:hover {
   opacity: 60%;
 }
 
@@ -96,7 +96,7 @@
     font-size: 16px;
   }
 
-  .intro__add-button {
+  .intro__addCard-button {
     width: 120px;
     height: 45px;
     font-size: 18px;
@@ -155,7 +155,7 @@
     margin: 0;
   }
 
-  .intro__add-button {
+  .intro__addCard-button {
     width: 90%;
     height: 50px;
     font-size: 24px;
