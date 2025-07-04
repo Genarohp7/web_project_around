@@ -1,0 +1,162 @@
+.addCard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.addCard_opened {
+  display: flex;
+}
+
+.addCard__container {
+  width: 430px;
+  height: 330px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 20%;
+  left: 30%;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.addCard__title {
+  font-family: Inter, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 100%;
+  margin-left: 5%;
+  color: black;
+}
+
+.addCard__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  bottom: 15%;
+}
+
+.addCard__input-action,
+.addCard__input-name {
+  width: 358px;
+  height: 27px;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  border-bottom: 1px solid #c4c4c4;
+  margin-bottom: 5%;
+  outline: none;
+  font-family: Inter, sans-serif;
+}
+
+.addCard__input-name::placeholder,
+.addCard__input-action::placeholder {
+  color: #c4c4c4;
+}
+
+.addCard__button {
+  width: 365px;
+  height: 50px;
+  background-color: #ffffff;
+  color: #c4c4c4;
+  border: 1px solid #c4c4c4;
+  margin-top: 5%;
+  font-family: Inter, sans-serif;
+  cursor: pointer;
+}
+
+
+
+.addCard__button:hover {
+  opacity: 80%;
+}
+
+.addCard__form:has(#input-name:valid):has(#input-tag:valid) .popup__button {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.addCard__close {
+  position: absolute;
+  top: -15%;
+  right: -10%;
+  font-size: 40px;
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.addCard__close:hover {
+  opacity: 60%;
+}
+
+@media screen and (max-width: 1024px) {
+  .addCard__container {
+    width: 90%;
+    max-width: 430px;
+    height: auto;
+    top: 10%;
+    left: 0;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .addCard__input-name,
+  .addCard__input-action,
+  .addCard__button {
+    width: 100%;
+  }
+
+  .addCard__close {
+    top: -12%;
+    right: -5%;
+    font-size: 32px;
+  }
+}
+
+
+@media screen and (max-width: 544px) {
+  .addCard {
+    width: 100%;
+    max-width: 282px;
+    height: 322px;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+ 
+  }
+
+  .addCard__container {
+    width: 282px;
+    height: 322px;
+    position: relative;
+    top: 90px;
+    left: 20px;
+    border-radius: 5%;
+  }
+
+  .addCard__input-action,
+  .addCard__input-name,
+  .addCard__button {
+    width: 90%;
+  }
+
+  .addCard__close {
+    font-size: 26px;
+    top: -10%;
+    right: -3%;
+  }
+}

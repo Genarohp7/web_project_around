@@ -43,7 +43,7 @@
             <p class="intro__profile-activity">Explorador</p>
           </div>
 
-          <button class="intro__add-button" aria-label="Agregar elemento">
+          <button class="intro__add-button" aria-label="Agregar elemento" class="newCard">
             <span class="fa-solid fa-plus"></span>
           </button>
         </div>
@@ -69,6 +69,32 @@
               <button type="submit" class="popup__button">Guardar</button>
             </form>
             <button class="popup__close">
+              <span class="fa-solid fa-x"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="addCard">
+            <div class="addCard__container">
+            <h2 class="addCard__title">Nuevo Perfil</h2>
+            <form class="addCard__form">
+              <input
+                type="text"
+                class="addCard__input-name"
+                placeholder="Titulo"
+                id="input-place"
+                required
+              />
+              <input
+                type="url"
+                class="addCard__input-action"
+                placeholder="Enlace a la imagen"
+                id="input-url"
+                required
+              />
+              <button type="submit" class="addCard__button">Guardar</button>
+            </form>
+            <button class="addCard__close">
               <span class="fa-solid fa-x"></span>
             </button>
           </div>
