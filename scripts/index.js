@@ -79,6 +79,12 @@ function createCard(name, link) {
 
   const deleteButton = document.createElement("span");
   deleteButton.classList.add("fa-solid", "fa-trash", "grid__item-delete");
+icon.addEventListener("click", () => {
+  icon.classList.toggle("fa-solid"); // Alterna entre sólido y regular
+  icon.classList.toggle("fa-regular");
+});
+
+
   card.appendChild(deleteButton);
 
   textContainer.appendChild(title);
@@ -93,6 +99,28 @@ initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData.name, cardData.link);
   cardContainer.appendChild(cardElement);
 });
+
+// funcion para agregar nuevas tarjetas al grid
+
+let addCardForm = document.querySelector(".addCard__form");
+
+function submitAddCard(e) {
+  e.preventDefault();
+
+  const title = document.querySelector("#input-place").value;
+  const imageUrl = document.querySelector("#input-url").value;
+
+  const newCard = createCard(title, imageUrl);
+
+  cardContainer.prepend(newCard); // Agrega al inicio
+
+  closeAddCard(); // Cierra el popup
+
+  addCardForm.reset(); // Limpia el formulario
+}
+
+addCardForm.addEventListener("submit", submitAddCard);
+
 
 // funcion para abrir popup de edicion de perfil
 

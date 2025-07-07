@@ -6,50 +6,47 @@
   display: inline-block;
   width: 173px;
   text-decoration: none;
-margin-top: 45px;
-margin-left: 200px;
+  margin-top: 45px;
+  display: flex;
+  justify-content: center;
 }
 
-.header__line{
-  width: 880px;
+.header__line {
+  margin: 0 auto;
   background-color: #545454;
   margin-top: 20px;
   opacity: 70%;
 }
 
-
 @media screen and (max-width: 1024px) {
   .header__logo {
-    margin-left: 40px; 
+    margin-left: 40px;
     margin-top: 30px;
-    width: 150px; 
+    width: 150px;
   }
 
   .header__line {
-    width: 90%; 
-    margin: 20px auto 0; 
+    width: 90%;
+    margin: 20px auto 0;
   }
 }
 
 @media screen and (max-width: 544px) {
-
   .header {
-  width: 100%;
-}
+    width: 100%;
+  }
 
   .header__logo {
-margin-top: 20px;
-margin-left: 20px;
-  width: 126px;
-  text-decoration: none;
+    margin-top: 20px;
+    margin-left: 20px;
+    width: 126px;
+    text-decoration: none;
+  }
 
-}
-
-.header__line{
-  width: 99%;
-  background-color: #545454;
-  margin-top: 20px;
-  opacity: 70%;
-}
-
+  .header__line {
+    width: 99%;
+    background-color: #545454;
+    margin-top: 20px;
+    opacity: 70%;
+  }
 }

@@ -5,7 +5,8 @@
   gap: 20px;
   padding: 20px;
   position: relative;
-  left: 15%;
+  margin: 0 auto;
+justify-content: center;
 }
 
 .grid__item {
@@ -33,7 +34,8 @@
 }
 
 .grid__item-img {
-  width: 282px;
+  width: 100%;
+  max-width: 282px;
   height: 282px;
   object-fit: cover;
 }
