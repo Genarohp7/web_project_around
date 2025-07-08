@@ -77,16 +77,21 @@ function createCard(name, link) {
   const icon = document.createElement("span");
   icon.classList.add("fa-regular", "fa-heart", "grid__item-icon");
 
+
+  icon.addEventListener("click", () => {
+    icon.classList.toggle("fa-solid");
+    icon.classList.toggle("fa-regular");
+  });
+
   const deleteButton = document.createElement("span");
   deleteButton.classList.add("fa-solid", "fa-trash", "grid__item-delete");
-icon.addEventListener("click", () => {
-  icon.classList.toggle("fa-solid"); // Alterna entre sólido y regular
-  icon.classList.toggle("fa-regular");
-});
 
+  
+  deleteButton.addEventListener("click", () => {
+    card.remove();
+  });
 
   card.appendChild(deleteButton);
-
   textContainer.appendChild(title);
   textContainer.appendChild(icon);
   card.appendChild(image);
@@ -94,6 +99,7 @@ icon.addEventListener("click", () => {
 
   return card;
 }
+
 
 initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData.name, cardData.link);
