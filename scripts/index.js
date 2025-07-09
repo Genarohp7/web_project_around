@@ -14,6 +14,13 @@ let closeAddCardButton = document.querySelector(".addCard__close");
 let saveAddCardButton = document.querySelector(".addCard__button");
 let addCard = document.querySelector(".addCard");
 
+
+const popupImage = document.querySelector(".popupImage");
+const popupImagePhoto = document.querySelector(".popupImage__photo");
+const popupImageCaption = document.querySelector(".popupImage__caption");
+const popupImageClose = document.querySelector(".popupImage__close");
+
+
 function openAddCard() {
   addCard.classList.add("addCard_opened");
   nameInput.value = "";
@@ -66,6 +73,14 @@ function createCard(name, link) {
   image.classList.add("grid__item-img");
   image.src = link;
   image.alt = name;
+
+image.addEventListener("click", () => {
+  popupImagePhoto.src = link;
+  popupImagePhoto.alt = name;
+  popupImageCaption.textContent = name;
+  popupImage.classList.add("popupImage_opened");
+});
+
 
   const textContainer = document.createElement("div");
   textContainer.classList.add("grid__item-text");
@@ -155,3 +170,8 @@ function submitForm(e) {
 }
 
 form.addEventListener("submit", submitForm);
+
+popupImageClose.addEventListener("click", () => {
+  popupImage.classList.remove("popupImage_opened");
+});
+
