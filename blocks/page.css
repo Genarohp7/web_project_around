@@ -3,7 +3,11 @@
   color: #f0f0f0;
   font-family: "Inter", Arial, sans-serif;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
+
 
 @media screen and (max-width: 1024px) {
   .page {
