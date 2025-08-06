@@ -14,12 +14,10 @@ let closeAddCardButton = document.querySelector(".addCard__close");
 let saveAddCardButton = document.querySelector(".addCard__button");
 let addCard = document.querySelector(".addCard");
 
-
 const popupImage = document.querySelector(".popupImage");
 const popupImagePhoto = document.querySelector(".popupImage__photo");
 const popupImageCaption = document.querySelector(".popupImage__caption");
 const popupImageClose = document.querySelector(".popupImage__close");
-
 
 function openAddCard() {
   addCard.classList.add("addCard_opened");
@@ -59,7 +57,7 @@ const initialCards = [
   },
   {
     name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+    link: " ",
   },
 ];
 
@@ -74,13 +72,12 @@ function createCard(name, link) {
   image.src = link;
   image.alt = name;
 
-image.addEventListener("click", () => {
-  popupImagePhoto.src = link;
-  popupImagePhoto.alt = name;
-  popupImageCaption.textContent = name;
-  popupImage.classList.add("popupImage_opened");
-});
-
+  image.addEventListener("click", () => {
+    popupImagePhoto.src = link;
+    popupImagePhoto.alt = name;
+    popupImageCaption.textContent = name;
+    popupImage.classList.add("popupImage_opened");
+  });
 
   const textContainer = document.createElement("div");
   textContainer.classList.add("grid__item-text");
@@ -92,7 +89,6 @@ image.addEventListener("click", () => {
   const icon = document.createElement("span");
   icon.classList.add("fa-regular", "fa-heart", "grid__item-icon");
 
-
   icon.addEventListener("click", () => {
     icon.classList.toggle("fa-solid");
     icon.classList.toggle("fa-regular");
@@ -101,7 +97,6 @@ image.addEventListener("click", () => {
   const deleteButton = document.createElement("span");
   deleteButton.classList.add("fa-solid", "fa-trash", "grid__item-delete");
 
-  
   deleteButton.addEventListener("click", () => {
     card.remove();
   });
@@ -114,7 +109,6 @@ image.addEventListener("click", () => {
 
   return card;
 }
-
 
 initialCards.forEach((cardData) => {
   const cardElement = createCard(cardData.name, cardData.link);
@@ -141,7 +135,6 @@ function submitAddCard(e) {
 }
 
 addCardForm.addEventListener("submit", submitAddCard);
-
 
 // funcion para abrir popup de edicion de perfil
 
@@ -183,20 +176,25 @@ function showInputError(formElement, inputElement, errorMessage, config) {
 function hideInputError(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(config.inputErrorClass);
-  errorElement.textContent = '';
+  errorElement.textContent = "";
   errorElement.classList.remove(config.errorClass);
 }
 
 function checkInputValidity(formElement, inputElement, config) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage, config);
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      config
+    );
   } else {
     hideInputError(formElement, inputElement, config);
   }
 }
 
 function hasInvalidInput(inputList) {
-  return inputList.some(inputElement => !inputElement.validity.valid);
+  return inputList.some((inputElement) => !inputElement.validity.valid);
 }
 
 function toggleButtonState(inputList, buttonElement, config) {
@@ -210,12 +208,14 @@ function toggleButtonState(inputList, buttonElement, config) {
 }
 
 function setEventListeners(formElement, config) {
-  const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
   toggleButtonState(inputList, buttonElement, config);
 
-  inputList.forEach(inputElement => {
+  inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       checkInputValidity(formElement, inputElement, config);
       toggleButtonState(inputList, buttonElement, config);
@@ -225,21 +225,31 @@ function setEventListeners(formElement, config) {
 
 function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach(formElement => {
+  formList.forEach((formElement) => {
     setEventListeners(formElement, config);
   });
 }
-
 
 popupImageClose.addEventListener("click", () => {
   popupImage.classList.remove("popupImage_opened");
 });
 
+// Para el formulario de edición de perfil
 enableValidation({
   formSelector: ".popup__form",
-  inputSelector: ".popup__input",
+  inputSelector: ".popup__input-name, .popup__input-action",
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible"
+});
+
+// Para el formulario de agregar nueva tarjeta
+enableValidation({
+  formSelector: ".addCard__form",
+  inputSelector: ".addCard__input-name, .addCard__input-action",
+  submitButtonSelector: ".addCard__button",
+  inactiveButtonClass: "addCard__button_disabled",
+  inputErrorClass: "addCard__input_type_error",
+  errorClass: "addCard__error_visible"
 });

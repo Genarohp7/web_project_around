@@ -102,6 +102,22 @@
   opacity: 60%;
 }
 
+.addCard__input_type_error {
+  border-bottom: 1px solid red;
+}
+
+.addCard__error {
+  color: red;
+  font-size: 12px;
+  display: none;
+  margin-top: 5px;
+}
+
+.addCard__error_visible {
+  display: block;
+}
+
+
 @media screen and (max-width: 1024px) {
   .addCard__container {
     width: 90%;

@@ -98,8 +98,12 @@
                 class="addCard__input-name"
                 placeholder="Titulo"
                 id="input-place"
+                minlength="2"
+                maxlength="30"
                 required
               />
+              <span class="popup__error" id="input-place-error"></span>
+
               <input
                 type="url"
                 class="addCard__input-action"
@@ -107,8 +111,11 @@
                 id="input-url"
                 required
               />
+              <span class="popup__error" id="input-url-error"></span>
+
               <button type="submit" class="addCard__button">Guardar</button>
             </form>
+
             <button class="addCard__close">
               <span class="fa-solid fa-x"></span>
             </button>
