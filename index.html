@@ -54,20 +54,35 @@
             <form class="popup__form">
               <input
                 type="text"
-                class="popup__input-name"
-                placeholder="Nombre"
                 id="input-name"
+                class="popup__input popup__input-name"
                 required
+                minlength="2"
+                maxlength="40"
+                placeholder="Nombre"
               />
+              <span class="popup__error" id="input-name-error"></span>
+
               <input
                 type="text"
-                class="popup__input-action"
-                placeholder="Acerca de mi"
                 id="input-tag"
+                class="popup__input popup__input-action"
                 required
+                minlength="2"
+                maxlength="200"
+                placeholder="Acerca de mí"
               />
-              <button type="submit" class="popup__button">Guardar</button>
+              <span class="popup__error" id="input-tag-error"></span>
+
+              <button
+                type="submit"
+                class="popup__button popup__button_disabled"
+                disabled
+              >
+                Guardar
+              </button>
             </form>
+
             <button class="popup__close">
               <span class="fa-solid fa-x"></span>
             </button>
@@ -101,12 +116,11 @@
         </div>
 
         <div class="grid"></div>
-     
 
         <footer class="footer">
           <p class="footer__copyright">&copy; 2025. Genaro Hernández Piñeiro</p>
         </footer>
-           <div class="popupImage">
+        <div class="popupImage">
           <div class="popupImage__container">
             <button class="popupImage__close" aria-label="Cerrar">
               <span class="fa-solid fa-x"></span>
