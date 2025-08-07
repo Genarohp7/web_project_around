@@ -256,16 +256,26 @@ enableValidation({
   errorClass: "addCard__error_visible",
 });
 
-// Selecciona todos los popups
+// Selecciona todos los popups para cerrar al hacer clic fuera de ellos
 const popups = document.querySelectorAll(".popup, .addCard");
 
 popups.forEach((popup) => {
   popup.addEventListener("mousedown", (event) => {
-    // Si haces clic directamente en la superposición (no en el contenido)
     if (event.target === popup) {
       closepopup(popup);
     }
   });
 });
 
+// Cerrar popup con tecla Esc
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    const openedPopup = document.querySelector(
+      ".popup_opened, .addCard_opened, .popupImage_opened"
+    );
+    if (openedPopup) {
+      closepopup(openedPopup);
+    }
+  }
+});
 
