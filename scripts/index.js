@@ -146,12 +146,14 @@ function openpopup() {
 
 // funcion para cerrar popup de edicion de perfil
 
-function closepopup() {
-  popup.classList.remove("popup_opened");
+function closepopup(popupElement) {
+  popupElement.classList.remove("popup_opened");
+  popupElement.classList.remove("addCard_opened");
+  popupElement.classList.remove("popupImage_opened");
 }
 
 editButton.addEventListener("click", openpopup);
-closeButton.addEventListener("click", closepopup);
+closeButton.addEventListener("click", () => closepopup(popup));
 
 // funcion para actualizas datos del perfil
 
@@ -241,7 +243,7 @@ enableValidation({
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
+  errorClass: "popup__error_visible",
 });
 
 // Para el formulario de agregar nueva tarjeta
@@ -251,5 +253,19 @@ enableValidation({
   submitButtonSelector: ".addCard__button",
   inactiveButtonClass: "addCard__button_disabled",
   inputErrorClass: "addCard__input_type_error",
-  errorClass: "addCard__error_visible"
+  errorClass: "addCard__error_visible",
 });
+
+// Selecciona todos los popups
+const popups = document.querySelectorAll(".popup, .addCard");
+
+popups.forEach((popup) => {
+  popup.addEventListener("mousedown", (event) => {
+    // Si haces clic directamente en la superposición (no en el contenido)
+    if (event.target === popup) {
+      closepopup(popup);
+    }
+  });
+});
+
+
