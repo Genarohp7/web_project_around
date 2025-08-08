@@ -1,3 +1,4 @@
+import { enableValidation, resetValidation } from "./validate.js";
 let editButton = document.querySelector(".intro__profile-edit-button");
 let closeButton = document.querySelector(".popup__close");
 let saveButton = document.querySelector(".popup__button");
@@ -19,6 +20,7 @@ const popupImagePhoto = document.querySelector(".popupImage__photo");
 const popupImageCaption = document.querySelector(".popupImage__caption");
 const popupImageClose = document.querySelector(".popupImage__close");
 
+
 function openAddCard() {
   addCard.classList.add("addCard_opened");
   nameInput.value = "";
@@ -27,10 +29,15 @@ function openAddCard() {
 
 function closeAddCard() {
   addCard.classList.remove("addCard_opened");
+  addCardForm.reset(); 
 }
 
 newCardButton.addEventListener("click", openAddCard);
-closeAddCardButton.addEventListener("click", closeAddCard);
+closeAddCardButton.addEventListener("click", () => {
+  resetValidation(addCardForm, cardValidationConfig);
+  closeAddCard();
+});
+
 
 // funcion y arreglo de grid para cargar nuevas tarjetas
 
@@ -57,7 +64,7 @@ const initialCards = [
   },
   {
     name: "Lago di Braies",
-    link: " ",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
   },
 ];
 
@@ -150,10 +157,18 @@ function closepopup(popupElement) {
   popupElement.classList.remove("popup_opened");
   popupElement.classList.remove("addCard_opened");
   popupElement.classList.remove("popupImage_opened");
+
+  if (popupElement.classList.contains("addCard")) {
+    addCardForm.reset(); // Limpia el formulario si es el popup de agregar tarjeta
+  } 
 }
 
 editButton.addEventListener("click", openpopup);
-closeButton.addEventListener("click", () => closepopup(popup));
+closeButton.addEventListener("click", () => {
+  resetValidation(form, profileValidationConfig);
+  closepopup(popup);
+});
+
 
 // funcion para actualizas datos del perfil
 
@@ -166,75 +181,27 @@ function submitForm(e) {
 
 form.addEventListener("submit", submitForm);
 
-// Validación de formularios
-
-function showInputError(formElement, inputElement, errorMessage, config) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add(config.inputErrorClass);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(config.errorClass);
-}
-
-function hideInputError(formElement, inputElement, config) {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(config.inputErrorClass);
-  errorElement.textContent = "";
-  errorElement.classList.remove(config.errorClass);
-}
-
-function checkInputValidity(formElement, inputElement, config) {
-  if (!inputElement.validity.valid) {
-    showInputError(
-      formElement,
-      inputElement,
-      inputElement.validationMessage,
-      config
-    );
-  } else {
-    hideInputError(formElement, inputElement, config);
-  }
-}
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => !inputElement.validity.valid);
-}
-
-function toggleButtonState(inputList, buttonElement, config) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
-    buttonElement.disabled = true;
-  } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.disabled = false;
-  }
-}
-
-function setEventListeners(formElement, config) {
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
-
-  toggleButtonState(inputList, buttonElement, config);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", () => {
-      checkInputValidity(formElement, inputElement, config);
-      toggleButtonState(inputList, buttonElement, config);
-    });
-  });
-}
-
-function enableValidation(config) {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach((formElement) => {
-    setEventListeners(formElement, config);
-  });
-}
 
 popupImageClose.addEventListener("click", () => {
   popupImage.classList.remove("popupImage_opened");
 });
+
+const profileValidationConfig = {
+  inputSelector: ".popup__input-name, .popup__input-action",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const cardValidationConfig = {
+  inputSelector: ".addCard__input-name, .addCard__input-action",
+  submitButtonSelector: ".addCard__button",
+  inactiveButtonClass: "addCard__button_disabled",
+  inputErrorClass: "addCard__input_type_error",
+  errorClass: "addCard__error_visible",
+};
+
 
 // Para el formulario de edición de perfil
 enableValidation({
@@ -259,21 +226,33 @@ enableValidation({
 // Selecciona todos los popups para cerrar al hacer clic fuera de ellos
 const popups = document.querySelectorAll(".popup, .addCard");
 
-popups.forEach((popup) => {
-  popup.addEventListener("mousedown", (event) => {
-    if (event.target === popup) {
-      closepopup(popup);
+popups.forEach((popupElement) => {
+  popupElement.addEventListener("mousedown", (event) => {
+    if (event.target === popupElement) {
+      if (popupElement.classList.contains("popup")) {
+        resetValidation(form, profileValidationConfig);
+      } else if (popupElement.classList.contains("addCard")) {
+        resetValidation(addCardForm, cardValidationConfig);
+      }
+      closepopup(popupElement);
     }
   });
 });
 
+
 // Cerrar popup con tecla Esc
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     const openedPopup = document.querySelector(
       ".popup_opened, .addCard_opened, .popupImage_opened"
     );
     if (openedPopup) {
+      if (openedPopup.classList.contains("popup")) {
+        resetValidation(form, profileValidationConfig);
+      } else if (openedPopup.classList.contains("addCard")) {
+        resetValidation(addCardForm, cardValidationConfig);
+      }
       closepopup(openedPopup);
     }
   }
