@@ -1,5 +1,7 @@
 import Card from "./card.js";
 import { enableValidation, resetValidation } from "./validate.js";
+import { openPopup, closePopup } from "./utils.js";
+
 let editButton = document.querySelector(".intro__profile-edit-button");
 let closeButton = document.querySelector(".popup__close");
 let saveButton = document.querySelector(".popup__button");
@@ -21,14 +23,17 @@ const popupImagePhoto = document.querySelector(".popupImage__photo");
 const popupImageCaption = document.querySelector(".popupImage__caption");
 const popupImageClose = document.querySelector(".popupImage__close");
 
+let addCardForm = document.querySelector(".addCard__form");
+
+// ---------- Abrir / Cerrar Add Card ----------
 function openAddCard() {
-  addCard.classList.add("addCard_opened");
+  openPopup(addCard);
   nameInput.value = "";
   jobInput.value = "";
 }
 
 function closeAddCard() {
-  addCard.classList.remove("addCard_opened");
+  closePopup(addCard);
   addCardForm.reset();
 }
 
@@ -38,33 +43,14 @@ closeAddCardButton.addEventListener("click", () => {
   closeAddCard();
 });
 
-// funcion y arreglo de grid para cargar nuevas tarjetas
-
+// ---------- Grid inicial ----------
 const initialCards = [
-  {
-    name: "Valle de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
-  },
-  {
-    name: "Montañas Calvas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
-  },
-  {
-    name: "Parque Nacional de la Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
-  },
+  { name: "Valle de Yosemite", link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg" },
+  { name: "Lago Louise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg" },
+  { name: "Montañas Calvas", link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg" },
+  { name: "Latemar", link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg" },
+  { name: "Parque Nacional de la Vanoise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg" },
+  { name: "Lago di Braies", link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg" },
 ];
 
 const cardContainer = document.querySelector(".grid");
@@ -73,7 +59,7 @@ function handleImageClick(name, link) {
   popupImagePhoto.src = link;
   popupImagePhoto.alt = name;
   popupImageCaption.textContent = name;
-  popupImage.classList.add("popupImage_opened");
+  openPopup(popupImage);
 }
 
 function createCard(name, link) {
@@ -86,70 +72,51 @@ initialCards.forEach((cardData) => {
   cardContainer.appendChild(cardElement);
 });
 
-// funcion para agregar nuevas tarjetas al grid
-
-let addCardForm = document.querySelector(".addCard__form");
-
+// ---------- Agregar nueva tarjeta ----------
 function submitAddCard(e) {
   e.preventDefault();
 
   const title = document.querySelector("#input-place").value;
   const imageUrl = document.querySelector("#input-url").value;
 
-const newCard = new Card({ name: title, link: imageUrl }, handleImageClick);
-const cardElement = newCard.generateCard();
-
+  const newCard = new Card({ name: title, link: imageUrl }, handleImageClick);
+  const cardElement = newCard.generateCard();
 
   cardContainer.prepend(cardElement);
-
   closeAddCard();
   addCardForm.reset();
 }
 
-
 addCardForm.addEventListener("submit", submitAddCard);
 
-// funcion para abrir popup de edicion de perfil
-
+// ---------- Editar perfil ----------
 function openpopup() {
-  popup.classList.add("popup_opened");
+  openPopup(popup);
   nameInput.value = "";
   jobInput.value = "";
-}
-
-// funcion para cerrar popup de edicion de perfil
-
-function closepopup(popupElement) {
-  popupElement.classList.remove("popup_opened");
-  popupElement.classList.remove("addCard_opened");
-  popupElement.classList.remove("popupImage_opened");
-
-  if (popupElement.classList.contains("addCard")) {
-    addCardForm.reset(); // Limpia el formulario si es el popup de agregar tarjeta
-  }
 }
 
 editButton.addEventListener("click", openpopup);
 closeButton.addEventListener("click", () => {
   resetValidation(form, profileValidationConfig);
-  closepopup(popup);
+  closePopup(popup);
 });
-
-// funcion para actualizas datos del perfil
 
 function submitForm(e) {
   e.preventDefault();
   job.textContent = jobInput.value;
   name.textContent = nameInput.value;
-  closepopup();
+  closePopup(popup);
 }
 
 form.addEventListener("submit", submitForm);
 
+// ---------- Popup imagen ----------
 popupImageClose.addEventListener("click", () => {
-  popupImage.classList.remove("popupImage_opened");
+  closePopup(popupImage);
 });
 
+// ---------- Validaciones ----------
 const profileValidationConfig = {
   inputSelector: ".popup__input-name, .popup__input-action",
   submitButtonSelector: ".popup__button",
@@ -166,27 +133,10 @@ const cardValidationConfig = {
   errorClass: "addCard__error_visible",
 };
 
-// Para el formulario de edición de perfil
-enableValidation({
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input-name, .popup__input-action",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-});
+enableValidation({ formSelector: ".popup__form", ...profileValidationConfig });
+enableValidation({ formSelector: ".addCard__form", ...cardValidationConfig });
 
-// Para el formulario de agregar nueva tarjeta
-enableValidation({
-  formSelector: ".addCard__form",
-  inputSelector: ".addCard__input-name, .addCard__input-action",
-  submitButtonSelector: ".addCard__button",
-  inactiveButtonClass: "addCard__button_disabled",
-  inputErrorClass: "addCard__input_type_error",
-  errorClass: "addCard__error_visible",
-});
-
-// Selecciona todos los popups para cerrar al hacer clic fuera de ellos
+// ---------- Cerrar popups clic fuera ----------
 const popups = document.querySelectorAll(".popup, .addCard");
 
 popups.forEach((popupElement) => {
@@ -197,25 +147,7 @@ popups.forEach((popupElement) => {
       } else if (popupElement.classList.contains("addCard")) {
         resetValidation(addCardForm, cardValidationConfig);
       }
-      closepopup(popupElement);
+      closePopup(popupElement);
     }
   });
-});
-
-// Cerrar popup con tecla Esc
-
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    const openedPopup = document.querySelector(
-      ".popup_opened, .addCard_opened, .popupImage_opened"
-    );
-    if (openedPopup) {
-      if (openedPopup.classList.contains("popup")) {
-        resetValidation(form, profileValidationConfig);
-      } else if (openedPopup.classList.contains("addCard")) {
-        resetValidation(addCardForm, cardValidationConfig);
-      }
-      closepopup(openedPopup);
-    }
-  }
 });
