@@ -96,14 +96,16 @@ function submitAddCard(e) {
   const title = document.querySelector("#input-place").value;
   const imageUrl = document.querySelector("#input-url").value;
 
-  const newCard = createCard(title, imageUrl);
+const newCard = new Card({ name: title, link: imageUrl }, handleImageClick);
+const cardElement = newCard.generateCard();
 
-  cardContainer.prepend(newCard); // Agrega al inicio
 
-  closeAddCard(); // Cierra el popup
+  cardContainer.prepend(cardElement);
 
-  addCardForm.reset(); // Limpia el formulario
+  closeAddCard();
+  addCardForm.reset();
 }
+
 
 addCardForm.addEventListener("submit", submitAddCard);
 
