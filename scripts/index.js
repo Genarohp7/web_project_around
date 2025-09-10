@@ -1,3 +1,4 @@
+import Card from "./card.js";
 import { enableValidation, resetValidation } from "./validate.js";
 let editButton = document.querySelector(".intro__profile-edit-button");
 let closeButton = document.querySelector(".popup__close");
@@ -20,7 +21,6 @@ const popupImagePhoto = document.querySelector(".popupImage__photo");
 const popupImageCaption = document.querySelector(".popupImage__caption");
 const popupImageClose = document.querySelector(".popupImage__close");
 
-
 function openAddCard() {
   addCard.classList.add("addCard_opened");
   nameInput.value = "";
@@ -29,7 +29,7 @@ function openAddCard() {
 
 function closeAddCard() {
   addCard.classList.remove("addCard_opened");
-  addCardForm.reset(); 
+  addCardForm.reset();
 }
 
 newCardButton.addEventListener("click", openAddCard);
@@ -37,7 +37,6 @@ closeAddCardButton.addEventListener("click", () => {
   resetValidation(addCardForm, cardValidationConfig);
   closeAddCard();
 });
-
 
 // funcion y arreglo de grid para cargar nuevas tarjetas
 
@@ -70,51 +69,16 @@ const initialCards = [
 
 const cardContainer = document.querySelector(".grid");
 
+function handleImageClick(name, link) {
+  popupImagePhoto.src = link;
+  popupImagePhoto.alt = name;
+  popupImageCaption.textContent = name;
+  popupImage.classList.add("popupImage_opened");
+}
+
 function createCard(name, link) {
-  const card = document.createElement("div");
-  card.classList.add("grid__item");
-
-  const image = document.createElement("img");
-  image.classList.add("grid__item-img");
-  image.src = link;
-  image.alt = name;
-
-  image.addEventListener("click", () => {
-    popupImagePhoto.src = link;
-    popupImagePhoto.alt = name;
-    popupImageCaption.textContent = name;
-    popupImage.classList.add("popupImage_opened");
-  });
-
-  const textContainer = document.createElement("div");
-  textContainer.classList.add("grid__item-text");
-
-  const title = document.createElement("h2");
-  title.classList.add("grid__item-city");
-  title.textContent = name;
-
-  const icon = document.createElement("span");
-  icon.classList.add("fa-regular", "fa-heart", "grid__item-icon");
-
-  icon.addEventListener("click", () => {
-    icon.classList.toggle("fa-solid");
-    icon.classList.toggle("fa-regular");
-  });
-
-  const deleteButton = document.createElement("span");
-  deleteButton.classList.add("fa-solid", "fa-trash", "grid__item-delete");
-
-  deleteButton.addEventListener("click", () => {
-    card.remove();
-  });
-
-  card.appendChild(deleteButton);
-  textContainer.appendChild(title);
-  textContainer.appendChild(icon);
-  card.appendChild(image);
-  card.appendChild(textContainer);
-
-  return card;
+  const card = new Card({ name, link }, handleImageClick);
+  return card.generateCard();
 }
 
 initialCards.forEach((cardData) => {
@@ -160,7 +124,7 @@ function closepopup(popupElement) {
 
   if (popupElement.classList.contains("addCard")) {
     addCardForm.reset(); // Limpia el formulario si es el popup de agregar tarjeta
-  } 
+  }
 }
 
 editButton.addEventListener("click", openpopup);
@@ -168,7 +132,6 @@ closeButton.addEventListener("click", () => {
   resetValidation(form, profileValidationConfig);
   closepopup(popup);
 });
-
 
 // funcion para actualizas datos del perfil
 
@@ -180,7 +143,6 @@ function submitForm(e) {
 }
 
 form.addEventListener("submit", submitForm);
-
 
 popupImageClose.addEventListener("click", () => {
   popupImage.classList.remove("popupImage_opened");
@@ -201,7 +163,6 @@ const cardValidationConfig = {
   inputErrorClass: "addCard__input_type_error",
   errorClass: "addCard__error_visible",
 };
-
 
 // Para el formulario de edición de perfil
 enableValidation({
@@ -239,7 +200,6 @@ popups.forEach((popupElement) => {
   });
 });
 
-
 // Cerrar popup con tecla Esc
 
 document.addEventListener("keydown", (event) => {
@@ -257,4 +217,3 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
-
