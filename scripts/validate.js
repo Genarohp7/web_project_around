@@ -1,4 +1,5 @@
-import FormValidator from './formValidator.js';
+// scripts/validate.js
+import FormValidator from "./formValidator.js";
 
 export function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
@@ -8,7 +9,6 @@ export function enableValidation(config) {
   });
 }
 
-
 export function resetValidation(formElement, config) {
   const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
@@ -16,8 +16,10 @@ export function resetValidation(formElement, config) {
   inputList.forEach((inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
     inputElement.classList.remove(config.inputErrorClass);
-    errorElement.textContent = "";
-    errorElement.classList.remove(config.errorClass);
+    if (errorElement) {
+      errorElement.textContent = "";
+      errorElement.classList.remove(config.errorClass);
+    }
   });
 
   const hasInvalidInput = inputList.some((inputElement) => !inputElement.validity.valid);

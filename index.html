@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Around the U.S.</title>
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="./pages/index.css" />
     <script
@@ -32,7 +32,7 @@
 
           <div class="intro__profile">
             <div class="intro__profile-top">
-              <h1 class="intro__profile-title">Genaro Cousteau</h1>
+              <h1 class="intro__profile-title">Genaro Hernandez</h1>
               <button
                 class="intro__profile-edit-button"
                 aria-label="Editar perfil"
@@ -40,7 +40,7 @@
                 <span class="fa-solid fa-pen"></span>
               </button>
             </div>
-            <p class="intro__profile-activity">Explorador</p>
+            <p class="intro__profile-activity">Ingeniero Software</p>
           </div>
 
           <button class="intro__addCard-button" aria-label="Agregar elemento">
@@ -48,6 +48,7 @@
           </button>
         </div>
 
+        <!-- Popup PERFIL -->
         <div class="popup">
           <div class="popup__container">
             <h2 class="popup__title">Editar perfil</h2>
@@ -55,6 +56,7 @@
               <input
                 type="text"
                 id="input-name"
+                name="input-name"
                 class="popup__input popup__input-name"
                 required
                 minlength="2"
@@ -66,6 +68,7 @@
               <input
                 type="text"
                 id="input-tag"
+                name="input-tag"
                 class="popup__input popup__input-action"
                 required
                 minlength="2"
@@ -83,12 +86,13 @@
               </button>
             </form>
 
-            <button class="popup__close">
+            <button class="popup__close" aria-label="Cerrar">
               <span class="fa-solid fa-x"></span>
             </button>
           </div>
         </div>
 
+        <!-- Popup ADD CARD -->
         <div class="addCard">
           <div class="addCard__container">
             <h2 class="addCard__title">Nuevo Perfil</h2>
@@ -98,6 +102,7 @@
                 class="addCard__input-name"
                 placeholder="Titulo"
                 id="input-place"
+                name="input-place"
                 minlength="2"
                 maxlength="30"
                 required
@@ -109,6 +114,7 @@
                 class="addCard__input-action"
                 placeholder="Enlace a la imagen"
                 id="input-url"
+                name="input-url"
                 required
               />
               <span class="popup__error" id="input-url-error"></span>
@@ -116,7 +122,7 @@
               <button type="submit" class="addCard__button">Guardar</button>
             </form>
 
-            <button class="addCard__close">
+            <button class="addCard__close" aria-label="Cerrar">
               <span class="fa-solid fa-x"></span>
             </button>
           </div>
@@ -127,6 +133,8 @@
         <footer class="footer">
           <p class="footer__copyright">&copy; 2025. Genaro Hernández Piñeiro</p>
         </footer>
+
+        <!-- Popup IMAGEN -->
         <div class="popupImage">
           <div class="popupImage__container">
             <button class="popupImage__close" aria-label="Cerrar">
@@ -138,8 +146,8 @@
         </div>
       </main>
     </div>
-   <script type="module" src="./scripts/index.js"></script>
 
-    <script src="./scripts/validate.js"></script>
+    <!-- MUY IMPORTANTE: Solo este script -->
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

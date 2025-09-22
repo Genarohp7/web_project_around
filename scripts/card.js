@@ -1,10 +1,9 @@
-// card.js
-
+// scripts/card.js
 class Card {
-  constructor({ name, link }, handleImageClick) {
+  constructor({ name, link }, handleCardClick) {
     this._name = name;
     this._link = link;
-    this._handleImageClick = handleImageClick;
+    this._handleCardClick = handleCardClick;
   }
 
   _createCardElement() {
@@ -23,7 +22,7 @@ class Card {
     image.alt = this._name;
 
     image.addEventListener("click", () => {
-      this._handleImageClick(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
 
     const textContainer = document.createElement("div");
@@ -35,7 +34,6 @@ class Card {
 
     const likeIcon = document.createElement("span");
     likeIcon.classList.add("fa-regular", "fa-heart", "grid__item-icon");
-
     likeIcon.addEventListener("click", () => {
       likeIcon.classList.toggle("fa-solid");
       likeIcon.classList.toggle("fa-regular");

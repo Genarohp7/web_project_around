@@ -1,9 +1,9 @@
+// scripts/index.js
 import Card from "./card.js";
-import { enableValidation, resetValidation } from "./validate.js";
-import { openPopup, closePopup } from "./utils.js";
+import { enableValidation } from "./validate.js";
 
 /* =========================
-   1) Clase Section
+   Clase Section
    ========================= */
 class Section {
   constructor({ items, renderer }, containerSelector) {
@@ -15,7 +15,7 @@ class Section {
   renderItems() {
     this._items.forEach((item) => {
       const element = this._renderer(item);
-      if (element) this.addItem(element); // append por defecto
+      if (element) this.addItem(element);
     });
   }
 
@@ -29,21 +29,32 @@ class Section {
 }
 
 /* =========================
-   2) Clase Popup
+   Clase Popup (base)
    ========================= */
 class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this);
+
+    // Determinar la clase "opened" según el tipo de popup
+    if (this._popupElement.classList.contains("addCard")) {
+      this._openedClass = "addCard_opened";
+    } else if (this._popupElement.classList.contains("popupImage")) {
+      this._openedClass = "popupImage_opened";
+    } else {
+      this._openedClass = "popup_opened";
+    }
   }
 
   open() {
-    this._popupElement.classList.add("popup_opened");
+    this._popupElement.classList.add(this._openedClass);
     document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
-    this._popupElement.classList.remove("popup_opened");
+    this._popupElement.classList.remove(this._openedClass);
+    // por seguridad limpiamos cualquier otra "opened" que haya quedado
+    this._popupElement.classList.remove("popup_opened", "addCard_opened", "popupImage_opened");
     document.removeEventListener("keydown", this._handleEscClose);
   }
 
@@ -55,10 +66,15 @@ class Popup {
 
   setEventListeners() {
     this._popupElement.addEventListener("mousedown", (event) => {
-      if (
-        event.target.classList.contains("popup_opened") ||
-        event.target.classList.contains("popup__close")
-      ) {
+      // Cerrar al hacer clic en el overlay
+      const clickEnOverlay = event.target === this._popupElement;
+      // Cerrar al hacer clic en el botón de cerrar (cualquiera)
+      const clickEnCerrar =
+        event.target.closest(".popup__close") ||
+        event.target.closest(".addCard__close") ||
+        event.target.closest(".popupImage__close");
+
+      if (clickEnOverlay || clickEnCerrar) {
         this.close();
       }
     });
@@ -66,7 +82,42 @@ class Popup {
 }
 
 /* =========================
-   3) Clase PopupWithImage
+   Clase PopupWithForm
+   ========================= */
+class PopupWithForm extends Popup {
+  constructor(popupSelector, handleFormSubmit) {
+    super(popupSelector);
+    this._handleFormSubmit = handleFormSubmit;
+    this._form = this._popupElement.querySelector("form");
+    this._inputList = Array.from(this._form.querySelectorAll("input"));
+  }
+
+  _getInputValues() {
+    const formValues = {};
+    this._inputList.forEach((input) => {
+      // IMPORTANTE: requiere atributos name en los inputs
+      formValues[input.name] = input.value;
+    });
+    return formValues;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmit(this._getInputValues());
+      this.close();
+    });
+  }
+
+  close() {
+    super.close();
+    this._form.reset();
+  }
+}
+
+/* =========================
+   Clase PopupWithImage
    ========================= */
 class PopupWithImage extends Popup {
   constructor(popupSelector) {
@@ -84,49 +135,26 @@ class PopupWithImage extends Popup {
 }
 
 /* =========================
-   Selectores y popups
+   Clase UserInfo
    ========================= */
-let editButton = document.querySelector(".intro__profile-edit-button");
-let closeButton = document.querySelector(".popup__close");
-let popup = document.querySelector(".popup");
+class UserInfo {
+  constructor({ nameSelector, jobSelector }) {
+    this._nameElement = document.querySelector(nameSelector);
+    this._jobElement = document.querySelector(jobSelector);
+  }
 
-let nameInput = document.querySelector("#input-name");
-let jobInput = document.querySelector("#input-tag");
-let name = document.querySelector(".intro__profile-title");
-let job = document.querySelector(".intro__profile-activity");
-let form = document.querySelector(".popup__form");
+  getUserInfo() {
+    return {
+      name: this._nameElement.textContent,
+      job: this._jobElement.textContent,
+    };
+  }
 
-let newCardButton = document.querySelector(".intro__addCard-button");
-let closeAddCardButton = document.querySelector(".addCard__close");
-let addCard = document.querySelector(".addCard");
-
-let addCardForm = document.querySelector(".addCard__form");
-
-/* =========================
-   Instancia de PopupWithImage
-   ========================= */
-const imagePopup = new PopupWithImage(".popupImage");
-imagePopup.setEventListeners();
-
-/* =========================
-   Abrir / Cerrar Add Card
-   ========================= */
-function openAddCard() {
-  openPopup(addCard);
-  nameInput.value = "";
-  jobInput.value = "";
+  setUserInfo({ name, job }) {
+    if (name) this._nameElement.textContent = name;
+    if (job) this._jobElement.textContent = job;
+  }
 }
-
-function closeAddCard() {
-  closePopup(addCard);
-  addCardForm.reset();
-}
-
-newCardButton.addEventListener("click", openAddCard);
-closeAddCardButton.addEventListener("click", () => {
-  resetValidation(addCardForm, cardValidationConfig);
-  closeAddCard();
-});
 
 /* =========================
    Datos iniciales
@@ -141,73 +169,70 @@ const initialCards = [
 ];
 
 /* =========================
-   Section: instanciación
+   Instancias de popups (primero)
+   ========================= */
+const popupWithImage = new PopupWithImage(".popupImage");
+popupWithImage.setEventListeners();
+
+const userInfo = new UserInfo({
+  nameSelector: ".intro__profile-title",
+  jobSelector: ".intro__profile-activity",
+});
+
+const profileFormPopup = new PopupWithForm(".popup", (formData) => {
+  userInfo.setUserInfo({
+    name: formData["input-name"],
+    job: formData["input-tag"],
+  });
+});
+profileFormPopup.setEventListeners();
+
+const addCardFormPopup = new PopupWithForm(".addCard", (formData) => {
+  const newCard = new Card(
+    { name: formData["input-place"], link: formData["input-url"] },
+    (n, l) => popupWithImage.open(n, l)
+  );
+  const cardElement = newCard.generateCard();
+  cardsSection.addItem(cardElement, true);
+});
+addCardFormPopup.setEventListeners();
+
+/* =========================
+   Section (después de tener popupWithImage)
    ========================= */
 const cardsSection = new Section(
   {
     items: initialCards,
     renderer: ({ name, link }) => {
-      const card = new Card({ name, link }, (name, link) => {
-        imagePopup.open(name, link); // usar PopupWithImage
-      });
+      const card = new Card({ name, link }, (n, l) => popupWithImage.open(n, l));
       return card.generateCard();
     },
   },
   ".grid"
 );
-
 cardsSection.renderItems();
 
 /* =========================
-   Agregar nueva tarjeta
+   Botones que abren formularios
    ========================= */
-function submitAddCard(e) {
-  e.preventDefault();
-
-  const title = document.querySelector("#input-place").value;
-  const imageUrl = document.querySelector("#input-url").value;
-
-  const newCard = new Card({ name: title, link: imageUrl }, (name, link) => {
-    imagePopup.open(name, link);
+document
+  .querySelector(".intro__profile-edit-button")
+  .addEventListener("click", () => {
+    const current = userInfo.getUserInfo();
+    document.querySelector("#input-name").value = current.name;
+    document.querySelector("#input-tag").value = current.job;
+    profileFormPopup.open();
   });
-  const cardElement = newCard.generateCard();
 
-  cardsSection.addItem(cardElement, true);
-
-  closeAddCard();
-  addCardForm.reset();
-}
-
-addCardForm.addEventListener("submit", submitAddCard);
-
-/* =========================
-   Editar perfil
-   ========================= */
-function openpopup() {
-  openPopup(popup);
-  nameInput.value = "";
-  jobInput.value = "";
-}
-
-editButton.addEventListener("click", openpopup);
-closeButton.addEventListener("click", () => {
-  resetValidation(form, profileValidationConfig);
-  closePopup(popup);
-});
-
-function submitForm(e) {
-  e.preventDefault();
-  job.textContent = jobInput.value;
-  name.textContent = nameInput.value;
-  closePopup(popup);
-}
-
-form.addEventListener("submit", submitForm);
+document
+  .querySelector(".intro__addCard-button")
+  .addEventListener("click", () => addCardFormPopup.open());
 
 /* =========================
    Validaciones
    ========================= */
 const profileValidationConfig = {
+  formSelector: ".popup__form",
   inputSelector: ".popup__input-name, .popup__input-action",
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_disabled",
@@ -216,6 +241,7 @@ const profileValidationConfig = {
 };
 
 const cardValidationConfig = {
+  formSelector: ".addCard__form",
   inputSelector: ".addCard__input-name, .addCard__input-action",
   submitButtonSelector: ".addCard__button",
   inactiveButtonClass: "addCard__button_disabled",
@@ -223,23 +249,5 @@ const cardValidationConfig = {
   errorClass: "addCard__error_visible",
 };
 
-enableValidation({ formSelector: ".popup__form", ...profileValidationConfig });
-enableValidation({ formSelector: ".addCard__form", ...cardValidationConfig });
-
-/* =========================
-   Cerrar popups por click fuera
-   ========================= */
-const popups = document.querySelectorAll(".popup, .addCard");
-
-popups.forEach((popupElement) => {
-  popupElement.addEventListener("mousedown", (event) => {
-    if (event.target === popupElement) {
-      if (popupElement.classList.contains("popup")) {
-        resetValidation(form, profileValidationConfig);
-      } else if (popupElement.classList.contains("addCard")) {
-        resetValidation(addCardForm, cardValidationConfig);
-      }
-      closePopup(popupElement);
-    }
-  });
-});
+enableValidation(profileValidationConfig);
+enableValidation(cardValidationConfig);
