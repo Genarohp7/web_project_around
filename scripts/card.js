@@ -12,18 +12,13 @@ class Card {
 
     const deleteButton = document.createElement("span");
     deleteButton.classList.add("fa-solid", "fa-trash", "grid__item-delete");
-    deleteButton.addEventListener("click", () => {
-      cardElement.remove();
-    });
+    deleteButton.addEventListener("click", () => cardElement.remove());
 
     const image = document.createElement("img");
     image.classList.add("grid__item-img");
     image.src = this._link;
     image.alt = this._name;
-
-    image.addEventListener("click", () => {
-      this._handleCardClick(this._name, this._link);
-    });
+    image.addEventListener("click", () => this._handleCardClick(this._name, this._link));
 
     const textContainer = document.createElement("div");
     textContainer.classList.add("grid__item-text");
